@@ -37,6 +37,8 @@
 //!   [`map::serde_seq`] module.
 //! * `borsh`: Adds implementations for [`BorshSerialize`] and [`BorshDeserialize`]
 //!   to [`IndexMap`] and [`IndexSet`].
+//! * `borsh-schema`: Adds implementations for [`BorshSchema`] to [`IndexMap`] and
+//!   [`IndexSet`].
 //! * `arbitrary`: Adds implementations for the [`arbitrary::Arbitrary`] trait
 //!   to [`IndexMap`] and [`IndexSet`].
 //! * `quickcheck`: Adds implementations for the [`quickcheck::Arbitrary`] trait
@@ -50,6 +52,7 @@
 //! [`Deserialize`]: `::serde::Deserialize`
 //! [`BorshSerialize`]: `::borsh::BorshSerialize`
 //! [`BorshDeserialize`]: `::borsh::BorshDeserialize`
+//! [`BorshSchema`]: `::borsh::BorshSchema`
 //! [`arbitrary::Arbitrary`]: `::arbitrary::Arbitrary`
 //! [`quickcheck::Arbitrary`]: `::quickcheck::Arbitrary`
 //!
