@@ -36,11 +36,9 @@
 //!   (de)serializing [`IndexMap`] as an ordered sequence are available in the
 //!   [`map::serde_seq`] module.
 //! * `borsh`: Adds implementations for [`BorshSerialize`] and [`BorshDeserialize`]
-//!   to [`IndexMap`] and [`IndexSet`]. **Note:** When this feature is enabled,
-//!   you cannot enable the `derive` feature of [`borsh`] due to a cyclic
-//!   dependency. Instead, add the `borsh-derive` crate as an explicit
-//!   dependency in your Cargo.toml and import as e.g.
-//!   `use borsh_derive::{BorshSerialize, BorshDeserialize};`.
+//!   to [`IndexMap`] and [`IndexSet`].
+//! * `borsh-schema`: Adds implementations for [`BorshSchema`] to [`IndexMap`] and
+//!   [`IndexSet`].
 //! * `arbitrary`: Adds implementations for the [`arbitrary::Arbitrary`] trait
 //!   to [`IndexMap`] and [`IndexSet`].
 //! * `quickcheck`: Adds implementations for the [`quickcheck::Arbitrary`] trait
@@ -55,6 +53,7 @@
 //! [`BorshSerialize`]: `::borsh::BorshSerialize`
 //! [`BorshDeserialize`]: `::borsh::BorshDeserialize`
 //! [`borsh`]: `::borsh`
+//! [`borsh-schema`]: `::borsh::BorshSchema`
 //! [`arbitrary::Arbitrary`]: `::arbitrary::Arbitrary`
 //! [`quickcheck::Arbitrary`]: `::quickcheck::Arbitrary`
 //!

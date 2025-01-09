@@ -1,5 +1,13 @@
 #![cfg_attr(docsrs, doc(cfg(feature = "borsh")))]
 
+#[cfg(feature = "borsh-schema")]
+use ::{
+    alloc::collections::btree_map::BTreeMap,
+    alloc::format,
+    borsh::schema::{add_definition, Declaration, Definition},
+    borsh::BorshSchema,
+};
+
 use alloc::vec::Vec;
 use core::hash::BuildHasher;
 use core::hash::Hash;
@@ -50,6 +58,27 @@ where
     }
 }
 
+#[cfg(feature = "borsh-schema")]
+impl<K, V, S> BorshSchema for IndexMap<K, V, S>
+where
+    K: BorshSchema,
+    V: BorshSchema,
+{
+    fn add_definitions_recursively(definitions: &mut BTreeMap<Declaration, Definition>) {
+        let definition = Definition::Sequence {
+            length_width: Definition::DEFAULT_LENGTH_WIDTH,
+            length_range: Definition::DEFAULT_LENGTH_RANGE,
+            elements: <(K, V)>::declaration(),
+        };
+        add_definition(Self::declaration(), definition, definitions);
+        <(K, V)>::add_definitions_recursively(definitions);
+    }
+
+    fn declaration() -> Declaration {
+        format!(r#"IndexMap<{}, {}>"#, K::declaration(), V::declaration())
+    }
+}
+
 impl<T, S> BorshSerialize for IndexSet<T, S>
 where
     T: BorshSerialize,
@@ -82,6 +111,26 @@ where
         check_zst::<T>()?;
         let vec = <Vec<T>>::deserialize_reader(reader)?;
         Ok(vec.into_iter().collect::<IndexSet<T, S>>())
+    }
+}
+
+#[cfg(feature = "borsh-schema")]
+impl<T, S> BorshSchema for IndexSet<T, S>
+where
+    T: BorshSchema,
+{
+    fn add_definitions_recursively(definitions: &mut BTreeMap<Declaration, Definition>) {
+        let definition = Definition::Sequence {
+            length_width: Definition::DEFAULT_LENGTH_WIDTH,
+            length_range: Definition::DEFAULT_LENGTH_RANGE,
+            elements: <T>::declaration(),
+        };
+        add_definition(Self::declaration(), definition, definitions);
+        <T>::add_definitions_recursively(definitions);
+    }
+
+    fn declaration() -> Declaration {
+        format!(r#"IndexSet<{}>"#, T::declaration())
     }
 }
 
