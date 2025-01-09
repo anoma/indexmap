@@ -5,6 +5,7 @@ publish = false
 edition = "2021"
 
 [dependencies.indexmap]
+package = "nam-indexmap"
 path = ".."
 default-features = false
 features = ["serde"]
